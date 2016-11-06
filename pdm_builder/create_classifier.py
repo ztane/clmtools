@@ -25,7 +25,7 @@ files = {
 classes = {}
 
 # load classes
-for c, f in files.iteritems():
+for c, f in files.items():
 	classes[c] = []
 	fi = open( os.path.join(data_folder,"classes/",f),"r")
 	for lines in fi:
@@ -48,7 +48,7 @@ data_pca, data_patches, meanshape, cropsize = preprocess.preprocess(config.annot
 #meanshape = data['meanshape']
 
 # build pca model
-data = [d.flatten() for d in data_pca.values() if not any(isnan(d))]
+data = [d.flatten() for d in list(data_pca.values()) if not any(isnan(d))]
 datamatrix = row_stack(data)
 pca = PCA(n_components=20)
 pca.fit(datamatrix)
@@ -58,10 +58,10 @@ params = []
 
 # get all points and transform
 # insert into positive and negative labels
-for k in data_pca.keys():
+for k in list(data_pca.keys()):
 	filename = os.path.splitext(k)[0]
 	labelvec = []
-	for c in classes.values():
+	for c in list(classes.values()):
 		if filename in c:
 			labelvec.append(1.0)
 		else:
@@ -88,9 +88,9 @@ of.write("var classifier = {\n")
 
 for i,c in enumerate(classes.keys()):
 	if sum(labels[:,i]) < 10.0:
-		print "Class '%s' had %d positive training samples. More positive samples needed for training. Ignoring this class." % (c, sum(labels[:,i]))
+		print("Class '%s' had %d positive training samples. More positive samples needed for training. Ignoring this class." % (c, sum(labels[:,i])))
 		continue
-	print "Training classifier for '%s' with %d positive training." % (c, sum(labels[:,i]))
+	print("Training classifier for '%s' with %d positive training." % (c, sum(labels[:,i])))
 	clf.fit(params, labels[:,i])
 	
 	of.write('\t"'+c+'" : {')

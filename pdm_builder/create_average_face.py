@@ -28,18 +28,18 @@ data_pca, data_patches, meanshape, cropsize = preprocess.preprocess(config.annot
 
 # get meanshape
 mean = [np.mean(column) for column in meanshape.T]
-for k,v in data_pca.iteritems():
+for k,v in data_pca.items():
 	data_pca[k] = (v+meanshape)-mean
 
 meanshape = ((meanshape-mean)+[cropsize[0]/2,cropsize[1]/2])
 
 imshape = (cropsize[0], cropsize[1], 3)
 avim = np.zeros(imshape)
-imlen = len(data_pca.keys())
+imlen = len(list(data_pca.keys()))
 
 # for each imaged
 count = 0
-for filename, values in data_pca.iteritems():
+for filename, values in data_pca.items():
   # warp to meanshape
   im = imread( os.path.join(data_folder, "cropped/", filename) )
   
@@ -50,7 +50,7 @@ for filename, values in data_pca.iteritems():
   #imsave("./averageface/test.bmp", outim)
   avim += skimage.util.img_as_float(outim)
   count += 1
-  print str(count)
+  print(str(count))
 
 avim /= imlen
 avim *= 255  

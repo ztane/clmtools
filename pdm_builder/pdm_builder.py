@@ -30,16 +30,16 @@ data_pca, data_patches, meanshape, cropsize = preprocess.preprocess(config.annot
 #cropsize = data['cropsize']
 
 # build shape model
-eigenVectors, eigenValues = buildshape.pca(data_pca.values(), num_components=20)
+eigenVectors, eigenValues = buildshape.pca(list(data_pca.values()), num_components=20)
 #eigenVectors, eigenValues = buildshape.spca(data_pca.values(), num_components=10, alpha=0.5)
 mean = [numpy.mean(column) for column in meanshape.T]
 
 if buildScoring:
 	scoring = getScoring(data_pca, meanshape-mean)
 
-for k,v in data_pca.iteritems():
+for k,v in data_pca.items():
 		data_pca[k] = (v+meanshape)-mean
-for k,v in data_patches.iteritems():
+for k,v in data_patches.items():
 		data_patches[k] = (v+meanshape)-mean
 
 # TODO: add values so that model is equally as wide/high as cropped images

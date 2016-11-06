@@ -1,10 +1,10 @@
 import tarfile, shutil, os, requests
 
-print "Please note that most of these images are not in the public domain. "
-print "Using the images for training a model is considered 'transformative use' and thus 'fair use'. "
-print "You are however, due to copyright, still not allowed to share or reproduce this set of images, publically or privately, in any way. "
-print "Please respect these rules. Press any key to continue."
-raw_input()
+print("Please note that most of these images are not in the public domain. ")
+print("Using the images for training a model is considered 'transformative use' and thus 'fair use'. ")
+print("You are however, due to copyright, still not allowed to share or reproduce this set of images, publically or privately, in any way. ")
+print("Please respect these rules. Press any key to continue.")
+input()
 
 files = {
 	"090312093916-large.jpg" : "http://images.sciencedaily.com/2009/03/090312093916-large.jpg",
@@ -187,7 +187,7 @@ files = {
 	 "863846941_4f2d5a4009_z.jpg" : "http://farm2.staticflickr.com/1368/863846941_4f2d5a4009_z.jpg?zz=1",
 }
 
-for fi, url in files.iteritems():
+for fi, url in files.items():
   if not os.path.exists(os.path.join("./images",fi)):
     # download
     try:
@@ -202,25 +202,25 @@ for fi, url in files.iteritems():
         size = int(r.headers['Content-Length'].strip())
         bytes = 0
         f = open(os.path.join("./",fi), 'wb')
-        print "Downloading: %s Bytes: %s" % (fi, size)
+        print("Downloading: %s Bytes: %s" % (fi, size))
         for buf in r.iter_content(1024):
           if buf:
             f.write(buf)
             bytes += len(buf)
             status = r"%10d	 [%3.2f%%]" % (bytes, bytes * 100. / size)
             status = status + chr(8)*(len(status)+1)
-            print status,
+            print(status, end=' ')
       else:
         bytes = 0
         f = open(os.path.join("./",fi), 'wb')
-        print "Downloading: %s" % (fi)
+        print("Downloading: %s" % (fi))
         for buf in r.iter_content(1024):
           if buf:
             f.write(buf)
             bytes += len(buf)
             status = r"%10d	 " % (bytes)
             status = status + chr(8)*(len(status)+1)
-            print status,
+            print(status, end=' ')
       f.close()
 
       # move to correct directory
@@ -228,6 +228,6 @@ for fi, url in files.iteritems():
     #except KeyError:
     #  import pdb;pdb.set_trace()
     except:
-      print "Could not find image at the url: %s" % (url)
+      print("Could not find image at the url: %s" % (url))
 
-print "Done!"
+print("Done!")

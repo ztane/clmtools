@@ -25,7 +25,7 @@ def preprocess(coordfiles, mirror=True, useNotVisiblePoints=True, crop=True):
 		li = lines.strip().split(";")
 
 		if not os.path.exists(os.path.join(config.images,li[0])):
-			print "Could not find file %s in %s" % (li[0], config.images)
+			print("Could not find file %s in %s" % (li[0], config.images))
 			continue
 
 		try:
@@ -36,7 +36,7 @@ def preprocess(coordfiles, mirror=True, useNotVisiblePoints=True, crop=True):
 			not_visible_coor = []
 			filenames.append(li[0])
 
-			for r in xrange(0, num_patches):
+			for r in range(0, num_patches):
 				i = (r*3)+1
 				if li[i+2] == "false":
 					not_visible_coor.append(r)
@@ -47,7 +47,7 @@ def preprocess(coordfiles, mirror=True, useNotVisiblePoints=True, crop=True):
 			coordinates.append(single_coor)
 			not_visible.append(not_visible_coor)
 		except IOError:
-			print "Could not load invalid image file: " + config.images + li[0]
+			print("Could not load invalid image file: " + config.images + li[0])
 
 	fi.close()
 
@@ -107,7 +107,7 @@ def preprocess(coordfiles, mirror=True, useNotVisiblePoints=True, crop=True):
 		procrustes_distance = procrustes.procrustes_distance(meanshape, new_meanshape)
 		# set old mean shape to new mean shape
 		meanshape = new_meanshape
-		print "procrustes distance in current iteration: "+str(procrustes_distance)
+		print("procrustes distance in current iteration: "+str(procrustes_distance))
 
 	# scale mean model to given modelwidth
 	meanshape = procrustes.scale_width(meanshape, modelwidth)

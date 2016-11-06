@@ -26,7 +26,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 	patchcrop = [(patch_size-1)/2, (patch_size+1)/2]
 
 	for r in range(0, num_patches):
-		print "training patch:"+str(r)
+		print("training patch:"+str(r))
 
 		positives = []
 		negatives = []
@@ -38,7 +38,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 
 		# load positive examples
 		i = 0
-		for filename, values in data.iteritems():
+		for filename, values in data.items():
 			im = Image.open( join(data_folder, "cropped/", filename) , "r")
 			mask = Image.open( join(data_folder, "cropped/", filename[:-4]+"_mask.bmp") , "r")
 
@@ -52,7 +52,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 				m_crop = mask.crop((points[0]-grad_patchcrop[0], points[1]-grad_patchcrop[0], points[0]+grad_patchcrop[1], points[1]+grad_patchcrop[1]))
 				m_crop = numpy.array(m_crop)
 				if not numpy.all(m_crop == 255):
-					print "cropping of patch "+str(r)+" in image '"+filename+"' was outside original image bounds. Dropping this patch from training."
+					print("cropping of patch "+str(r)+" in image '"+filename+"' was outside original image bounds. Dropping this patch from training.")
 				else:
 					if weights:
 						if r in weights and filename in weights[r]:
@@ -89,7 +89,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 						negatives.append(raw_crop.flatten())
 
 			if i % 1000 == 0:
-				print i
+				print(i)
 			i += 1
 
 		# get negative examples from landscape images
@@ -167,7 +167,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 			from sklearn.metrics import mean_squared_error
 			clfg = GridSearchCV(SVR(kernel="linear"), {'C':[0.1], 'epsilon' : [0.4, 0.3, 0.2, 0.1]}, loss_func=mean_squared_error, verbose=100)
 			clfg.fit(features[arr,:], labels[arr])
-			print clfg.best_params_
+			print(clfg.best_params_)
 			clf = clfg.best_estimator_
 		else:
 			clf = SVR(C=0.1, epsilon=0.3, kernel="linear")
@@ -185,7 +185,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 			if optimize_params:
 				clfg = GridSearchCV(SVR(kernel="linear"), {'C':[0.1], 'epsilon' : [0.4, 0.3, 0.2, 0.1]}, loss_func=mean_squared_error, verbose=100)
 				clfg.fit(grad_features[arr,:], labels[arr])
-				print "gradient best params"+str(clfg.best_params_)
+				print("gradient best params"+str(clfg.best_params_))
 				clf = clfg.best_estimator_
 			else:
 				clf = SVR(C=0.1, epsilon=0.3, kernel="linear")
@@ -198,7 +198,7 @@ def build_patches(data, gradient=True, lbp=True, weights=None, optimize_params=F
 			if optimize_params:
 				clfg = GridSearchCV(SVR(kernel="linear"), {'C':[0.1], 'epsilon' : [0.4, 0.3, 0.2, 0.1]}, loss_func=mean_squared_error, verbose=100)
 				clfg.fit(lbp_features[arr,:], labels[arr])
-				print "lbp best params"+str(clfg.best_params_)
+				print("lbp best params"+str(clfg.best_params_))
 				clf = clfg.best_estimator_
 			else:
 				clf = SVR(C=0.1, epsilon=0.3, kernel="linear")

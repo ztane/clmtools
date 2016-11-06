@@ -12,13 +12,13 @@ patch_size = config.patch_size
 def build_patches(data):
 	filters = []
 	for r in range(0, num_patches):
-		print "training patch:"+str(r)
+		print("training patch:"+str(r))
 		images = []
 		targetImages = []
 
 		# load positive examples
 		i = 0
-		for filename, values in data.iteritems():
+		for filename, values in data.items():
 			im = Image.open( join(data_folder, "cropped/", filename), "r")
 
 			# convert image to grayscale
@@ -53,7 +53,7 @@ def build_patches(data):
 				targetImages.append(targetImage)
 
 			if i % 1000 == 0:
-				print i
+				print(i)
 			i += 1
 
 		# preprocess
@@ -69,7 +69,7 @@ def build_patches(data):
 		images = [fft.fft2(im) for im in images]
 		targetImages = [fft.fft2(ti) for ti in targetImages]
 
-		print "calculating filter"
+		print("calculating filter")
 		# calculate filter
 		top = numpy.zeros((patch_size, patch_size))
 		top = top.astype('complex')
@@ -98,8 +98,8 @@ def build_patches(data):
 		#pickle.dump(clf.coef_, fi)
 		#fi.close()
 
-		filter_real = map(lambda x: x.real, filter.flatten().tolist())
-		filter_imag = map(lambda x: x.imag, filter.flatten().tolist())
+		filter_real = [x.real for x in filter.flatten().tolist()]
+		filter_imag = [x.imag for x in filter.flatten().tolist()]
 		filter = [filter_real, filter_imag]
 
 		filters.append(filter)

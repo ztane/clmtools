@@ -54,7 +54,7 @@ def spca(data, num_components=None, alpha=1):
 		
 		# normalize components
 		components = spca.components_.T
-		for r in xrange(0,components.shape[1]):
+		for r in range(0,components.shape[1]):
 			compnorm = numpy.apply_along_axis(numpy.linalg.norm, 0, components[:,r])
 			if not compnorm == 0:
 				components[:,r] /= compnorm

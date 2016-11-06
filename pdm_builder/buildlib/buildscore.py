@@ -30,8 +30,8 @@ def getScoring(data, mean, weights=False):
 
 	# load positive examples
 	i = 0
-	print "getting positive examples from face images"
-	for filename, values in data.iteritems():
+	print("getting positive examples from face images")
+	for filename, values in data.items():
 		im = Image.open(join(data_folder, "cropped/", filename), "r")
 
 		if weights:
@@ -61,10 +61,10 @@ def getScoring(data, mean, weights=False):
 		positives.append(p_crop.flatten())
 
 		if i % 1000 == 0:
-			print i
+			print(i)
 		i += 1
 
-	print "getting negative examples from face images"
+	print("getting negative examples from face images")
 
 	# get negative examples from face images
 	negfiles = [f for f in listdir(join(data_folder , "images/")) if config.valid_file("images/",f)]
@@ -93,15 +93,15 @@ def getScoring(data, mean, weights=False):
 
 					negatives.append(p_crop2.flatten())
 			except IOError:
-				print "could not load invalid image file: " + join(data_folder, "images/", filename)
+				print("could not load invalid image file: " + join(data_folder, "images/", filename))
 
-	print "getting negative examples from landscape images"
+	print("getting negative examples from landscape images")
 	# get negative examples from landscape images
 
 	negfiles = [f for f in listdir( join(data_folder, "negatives/") ) if config.valid_file("negatives/",f)]
 
 	if len(negfiles) == 0:
-		print "you have no 'negative' images in the ./negatives/ folder"
+		print("you have no 'negative' images in the ./negatives/ folder")
 		exit(1)
 
 	for filename in negfiles:
