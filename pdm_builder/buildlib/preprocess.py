@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function, unicode_literals, division
-import numpy, os, config, procrustes, sys
+import numpy, os, sys
+from . import config, procrustes
 from numpy import vstack, mean
 from PIL import Image
 

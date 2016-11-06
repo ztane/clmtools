@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function, unicode_literals, division
-import config, random, numpy, pickle, math
+import random, numpy, pickle, math
+from . import config
 from PIL import Image
 from numpy import array, sqrt, square, fft, mean, zeros
 from numpy.linalg import norm

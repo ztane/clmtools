@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function, unicode_literals, division
-import numpy, random, os, config, re
+import numpy, random, os, re
+from . import config
 
 from sklearn.svm import SVC
 from sklearn import preprocessing

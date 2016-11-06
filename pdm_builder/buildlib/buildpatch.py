@@ -1,5 +1,6 @@
 from __future__ import absolute_import, print_function, unicode_literals, division
-import numpy, pickle, random, os, config
+import numpy, pickle, random, os
+from . import config
 
 from numpy import array, sqrt, square
 from numpy.linalg import norm
