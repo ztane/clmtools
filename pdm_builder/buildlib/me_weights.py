@@ -1,3 +1,4 @@
+from __future__ import absolute_import, print_function, unicode_literals, division
 import os, config, string
 # these weights will weigh up some images where the eyes and mouth are in particular poses
 # so that the SVM patches will be more generically discriminate

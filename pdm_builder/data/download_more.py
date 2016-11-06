@@ -1,3 +1,4 @@
+from __future__ import absolute_import, print_function, unicode_literals, division
 import tarfile, shutil, os, requests
 
 print("Please note that most of these images are not in the public domain. ")

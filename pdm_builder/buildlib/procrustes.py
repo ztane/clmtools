@@ -1,3 +1,4 @@
+from __future__ import absolute_import, print_function, unicode_literals, division
 from numpy import sqrt, sum, dot, square, shape, mean, array
 from numpy.linalg.linalg import svd
 from numpy.linalg import inv
